@@ -2,14 +2,7 @@
 
 Rx binding of new Android Architecture Component Lifecycle
 
-```java
-allprojects {
-    repositories {
-        jcenter()
-        maven { url 'https://maven.google.com' }
-    }
-}
-```
+[ ![Download](https://api.bintray.com/packages/florent37/maven/rxcomponent-lifecycle/images/download.svg) ](https://bintray.com/florent37/maven/rxcomponent-lifecycle/_latestVersion)
 
 ```java
 def arch_version = "1.0.0-alpha1"
@@ -22,6 +15,17 @@ dependencies {
     compile "android.arch.lifecycle:extensions:$arch_version"
     
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+}
+```
+
+Don't forget to add google's maven
+
+```java
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://maven.google.com' }
+    }
 }
 ```
 
