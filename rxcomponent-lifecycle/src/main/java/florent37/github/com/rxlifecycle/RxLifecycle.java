@@ -6,12 +6,13 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.LifecycleRegistry;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.Subject;
 
-import static android.arch.lifecycle.Lifecycle.Event.*;
 import static android.arch.lifecycle.Lifecycle.Event.ON_ANY;
 import static android.arch.lifecycle.Lifecycle.Event.ON_CREATE;
 import static android.arch.lifecycle.Lifecycle.Event.ON_DESTROY;
@@ -28,9 +29,11 @@ public class RxLifecycle {
 
     private final Subject<Lifecycle.Event> subject = PublishSubject.<Lifecycle.Event>create().toSerialized();
     private final RxLifecycleObserver observer;
+    private final LifecycleRegistry lifecycleRegistry;
 
     public RxLifecycle(LifecycleRegistry lifecycleRegistry) {
-        observer = new RxLifecycleObserver(subject);
+        this.observer = new RxLifecycleObserver(subject);
+        this.lifecycleRegistry = lifecycleRegistry;
         lifecycleRegistry.addObserver(observer);
     }
 
@@ -46,7 +49,7 @@ public class RxLifecycle {
         return new RxLifecycle(lifecycleFragment.getLifecycle());
     }
 
-    public Observable<Lifecycle.Event> onEvent(){
+    public Observable<Lifecycle.Event> onEvent() {
         return subject;
     }
 
@@ -111,5 +114,26 @@ public class RxLifecycle {
                 return ON_ANY.equals(event);
             }
         });
+    }
+
+    public <T> Observable<T> onlyIfResumedOrStarted(final T value) {
+        return Observable.just("")
+                .flatMap(new Function<String, ObservableSource<T>>() {
+                    @Override
+                    public ObservableSource<T> apply(@NonNull String $) throws Exception {
+                        final Lifecycle.State currentState = lifecycleRegistry.getCurrentState();
+                        if (currentState.equals(Lifecycle.State.RESUMED) || currentState.equals(Lifecycle.State.STARTED)) {
+                            return Observable.just(value);
+                        } else {
+                            return onResume()
+                                    .map(new Function<Lifecycle.Event, T>() {
+                                        @Override
+                                        public T apply(@NonNull Lifecycle.Event event) throws Exception {
+                                            return value;
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 }

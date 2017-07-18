@@ -19,15 +19,12 @@ android {
     }
 }
 
-def arch_version = "1.0.0-alpha1"
-def supportVersion = '25.3.1'
-
 dependencies {
     compile "com.android.support:appcompat-v7:$supportVersion"
 
-    annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
-    compile "android.arch.lifecycle:runtime:$arch_version"
-    compile "android.arch.lifecycle:extensions:$arch_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$project.arch_version"
+    compile "android.arch.lifecycle:runtime:$project.arch_version"
+    compile "android.arch.lifecycle:extensions:$project.arch_version"
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile project(path: ':rxlifecycle')
+    compile project(path: ':rxcomponent-lifecycle')
 }

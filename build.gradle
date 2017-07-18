@@ -17,12 +17,15 @@ buildscript {
 ext{
     COMPILE_SDK=25
     TARGET_SDK=25
-    BUILD_TOOL = "25.0.0"
+    BUILD_TOOL = "25.0.0" //keep for CI
     minSdkVersion = 14
     sourceCompatibilityVersion = JavaVersion.VERSION_1_7
     targetCompatibilityVersion = JavaVersion.VERSION_1_7
 
-    libraryVersion = "1.0.0"
+    arch_version = "1.0.0-alpha4"
+    supportVersion = '25.3.1'
+
+    libraryVersion = "1.0.2"
 }
 
 

@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RxComponentLifecycle.iml" filepath="$PROJECT_DIR$/RxComponentLifecycle.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxlifecycle/rxlifecycle.iml" filepath="$PROJECT_DIR$/rxlifecycle/rxlifecycle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxcomponent-lifecycle/rxcomponent-lifecycle.iml" filepath="$PROJECT_DIR$/rxcomponent-lifecycle/rxcomponent-lifecycle.iml" />
     </modules>
   </component>
 </project>

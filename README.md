@@ -5,10 +5,10 @@ Rx binding of new Android Architecture Component Lifecycle
 [ ![Download](https://api.bintray.com/packages/florent37/maven/rxcomponent-lifecycle/images/download.svg) ](https://bintray.com/florent37/maven/rxcomponent-lifecycle/_latestVersion)
 
 ```java
-def arch_version = "1.0.0-alpha1"
+def arch_version = "1.0.0-alpha3"
 
 dependencies {
-    compile 'com.github.florent37:rxcomponent-lifecycle:1.0.0'
+    compile 'com.github.florent37:rxcomponent-lifecycle:1.0.2'
 
     annotationProcessor "android.arch.lifecycle:compiler:$arch_version"
     compile "android.arch.lifecycle:runtime:$arch_version"
@@ -30,6 +30,16 @@ allprojects {
 ```
 
 # Usage
+
+```java
+Observable.timer(10, TimeUnit.SECONDS) //async task
+
+                .flatMap(value -> RxLifecycle.with(getLifecycle()).onlyIfResumedOrStarted(value))  
+                //only perform the code below if the screen is visible
+                //(give it the value)
+               
+                 .subscribe(event -> //do what you want to display);
+```
 
 ```java
 RxLifecycle.with(getLifecycle())
